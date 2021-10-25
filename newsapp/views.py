@@ -37,7 +37,7 @@ def news_list(request, page=1, year=None, month=None, category_url=None, tag_url
     if ENABLE_CATEGORIES:
         categories = NewCategory.objects.all()
         if category_url:
-            current_category = NewCategory.objects.get(slug=category_url)
+            current_category = get_object_or_404(NewCategory, slug=category_url)
             list_filters['new_category__slug'] = current_category.slug
             url_params.append("category/"+current_category.slug)
 
@@ -92,6 +92,3 @@ def render_new(request, opened_url):
             'item': news_item,
             'date_archive_menu': date_archive
         })
-
-
-
