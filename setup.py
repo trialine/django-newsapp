@@ -9,7 +9,7 @@ os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
       name='django-newsapp',
-      version='1.1.0',
+      version='1.2.0',
       packages=find_packages(),
       include_package_data=True,
       description='Django News/Blog module',
@@ -23,7 +23,7 @@ setup(
       classifiers=[
             'Environment :: Web Environment',
             'Framework :: Django',
-            'Framework :: Django :: 2.0',
+            'Framework :: Django :: 4',
             'Intended Audience :: Developers',
             'License :: OSI Approved :: BSD License',
             'Operating System :: not OS Independent',

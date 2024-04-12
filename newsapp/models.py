@@ -23,9 +23,6 @@ if ENABLE_CATEGORIES:
         def __str__(self):
             return self.title
 
-        def __unicode__(self):
-            return self.title
-
         def get_absolute_url(self):
             return "{0}".format(reverse("new_category", kwargs={"category_url": self.slug}))
 
@@ -43,9 +40,6 @@ if ENABLE_TAGS:
             ordering = ('position',)
 
         def __str__(self):
-            return self.title
-
-        def __unicode__(self):
             return self.title
 
         def get_absolute_url(self):
@@ -83,7 +77,7 @@ class NewAbstract(models.Model):
         ordering = ('-date_added',)
         abstract = True
 
-    def __unicode__(self):
+    def __str__(self):
         return self.title
 
     def get_absolute_url(self):
