@@ -64,9 +64,11 @@ def news_list(request, page=1, year=None, month=None, category_url=None, tag_url
     news = New.active_objects.filter(**list_filters).exclude(**list_excludes)
 
     paginator = Paginator(news, NEWS_ON_PAGE)
+
+    if int(page) not in paginator.page_range:
+        raise Http404
+
     news_list = paginator.page(page)
-
-
 
     return render(request,
         'newsapp/news.html', {
@@ -80,8 +82,6 @@ def news_list(request, page=1, year=None, month=None, category_url=None, tag_url
             'current_category': current_category,
             'current_tag': current_tag
     })
-
-
 
 def render_new(request, opened_url):
     news_item = get_object_or_404(New.active_objects, slug=opened_url)
