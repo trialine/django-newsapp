@@ -3,8 +3,8 @@ from django.db import models
 from easy_thumbnails.fields import ThumbnailerImageField
 from django.db.models import Count, Max
 from django.utils.translation import gettext_lazy as _
-import datetime
 from django.urls import reverse
+from django.utils import timezone
 from .settings_newsapp import ENABLE_ARCHIVE, ENABLE_CATEGORIES, NEWS_CLASS, ENABLE_TAGS
 from newsapp import class_for_name
 
@@ -49,7 +49,7 @@ if ENABLE_TAGS:
 # First, define the Manager subclass.
 class ActiveNewsManager(models.Manager):
     def get_queryset(self):
-        return super(ActiveNewsManager, self).get_queryset().filter(active=True, date_added__lte=datetime.datetime.now())
+        return super(ActiveNewsManager, self).get_queryset().filter(active=True, date_added__lte=timezone.now())
 
 
 class NewAbstract(models.Model):
@@ -59,7 +59,7 @@ class NewAbstract(models.Model):
     slug = models.SlugField(_('slug'), blank=True, unique=True)
     content_short = models.TextField(_('brief'))
     content = models.TextField(_('content'), blank=True)
-    date_added = models.DateTimeField(_('date added'), default=datetime.datetime.today)
+    date_added = models.DateTimeField(_('date added'), default=timezone.now)
     active = models.BooleanField(_('active'), default=True)
     more_text = models.CharField(_('read more'), max_length=256, blank=True, help_text=_('read more button text'))
     image = ThumbnailerImageField(_('image'), upload_to='news', resize_source=dict(size=(1024, 1024)), blank=True, null=True)
